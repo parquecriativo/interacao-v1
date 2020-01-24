@@ -10,12 +10,12 @@ socket.on('temp', function (data) {
 
 
 
-if(data <= 100){
+if(data <= 10){
 	$(".bola").animate({left: '40px'}, 500);
-	setTimeout(() => {  console.log("Parando!"); }, 1000);
+	setTimeout(() => {  console.log("Olhando para ESQUERDA!"); }, 1000);
 	data = 200;
-}else if(data >= 101){
-	$(".bola").animate({left: '120px'}, 500);
+}else if(data >= 21){
+	$(".bola").animate({left: '110px'}, 500);
 	setTimeout(() => {  console.log("Parando!"); }, 1000);
 	data = 200;
 }

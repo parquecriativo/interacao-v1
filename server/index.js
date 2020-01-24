@@ -21,17 +21,17 @@ parser.on('open', function () {
   console.log('connection is opened');
 });
 
-
 parser.on('data', function (data) {
- 
-  let temp = parseInt(data, 10);
-  console.log(temp);
-  io.emit('temp', data.toString());
+	if(data != null){ 	
+	  let temp = parseInt(data, 10);
+	  // let temp = data.split(",");
+	  //console.log("primeiro" + temp[0] + " segundo" + temp[1]);
 
+		// console.log(temp);
+	  io.emit('temp', data.toString());
+
+	}
 });
-
 
 parser.on('error', (err) => console.log(err));
 port.on('error', (err) => console.log(err));
-
-
