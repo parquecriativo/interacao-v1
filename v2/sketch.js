@@ -1,3 +1,90 @@
+let pose;
+let video;
+let poseNet;
+let  skeleton;
+
+function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.hide();
+  poseNet = ml5.poseNet(video, retornaUmOk);
+  poseNet.on('pose',pegaPose);
+}
+
+function pegaPose(poses){
+  //console.log(poses); 
+  if(poses.length > 0){
+    pose = poses[0].pose;
+    skeleton = poses[0].skeleton;
+  }
+}
+
+function retornaUmOk(){
+  //console.log('pronto para bagaçar');
+}   
+
+function draw() {
+  image(video,0,0);
+  
+  if(pose){  
+    
+    let olhoEsq = pose.leftEye;
+    let olhoDir = pose.rightEye;
+    
+    let d = dist(olhoDir.x, olhoDir.y, olhoEsq.x, olhoEsq.y);
+    
+    fill(255,0,0);
+    ellipse(pose.nose.x,pose.nose.y, 40);
+    fill(0,0,255);
+    ellipse(olhoEsq.x,olhoEsq.y, d);
+    ellipse(olhoDir.x,olhoDir.y, d);
+    
+    ellipse(pose.leftEar.x,pose.leftEar.y, 40);
+    ellipse(pose.rightEar.x,pose.rightEar.y, 40);
+
+    ellipse(pose.leftShoulder.x,pose.leftShoulder.y, 40);
+    ellipse(pose.rightShoulder.x,pose.rightShoulder.y, 40);
+   
+    ellipse(pose.leftElbow.x,pose.leftElbow.y, 40);
+    ellipse(pose.rightElbow.x,pose.rightElbow.y, 40);
+   
+    ellipse(pose.leftWrist.x,pose.leftWrist.y, 40);
+    ellipse(pose.rightWrist.x,pose.rightWrist.y, 40);
+   
+    ellipse(pose.leftHip.x,pose.leftHip.y, 40);
+    ellipse(pose.rightHip.x,pose.rightHip.y, 40);
+   
+    ellipse(pose.leftHip.x,pose.leftHip.y, 40);
+    ellipse(pose.rightHip.x,pose.rightHip.y, 40);
+   
+    ellipse(pose.leftKnee.x,pose.leftKnee.y, 40);
+    ellipse(pose.rightKnee.x,pose.rightKnee.y, 40);
+   
+    ellipse(pose.leftAnkle.x,pose.leftAnkle.y, 40);
+    ellipse(pose.rightAnkle.x,pose.rightAnkle.y, 40);
+   
+    for(let i=0; i < pose.keypoints.length; i++){
+      let x = pose.keypoints[i].position.x;
+      let y = pose.keypoints[i].position.y;
+      fill(0,255,0);
+      ellipse(x,y,16,16);
+    }
+    
+    for (let i=0; i < skeleton.length; i++){
+      let a = skeleton[i][0];
+      let b = skeleton[i][1];
+      strokeWeight(4);
+      stroke(255,255,255);
+      line(a.position.x, a.position.y, b.position.x, b.position.y);
+    }
+      
+  }
+
+} 
+
+
+/*
+
 let leftEyeX;
 let rightEyeX;
 let heightEye;
@@ -150,16 +237,4 @@ function fecharOlhos() {
   counterSpeed = random(0.1);
 }
 
-/*
-function setup() {
-  createCanvas(640, 480);
-  
-}
-
-
-function draw() {
-  image(video, 0,0);
-  fill(255, 0, 0);
-  ellipse(noseX, noseY, 100);
-
-}*/
+*/
